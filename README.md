@@ -1,36 +1,141 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🦉 Buho - AI Blockchain Agent
 
-## Getting Started
+Agente de IA para consultas sobre blockchain, direcciones, tokens y transacciones.
 
-First, run the development server:
+## 🏗 Arquitectura
 
+- **Frontend**: Next.js 15, App Router, TypeScript, TailwindCSS
+- **Backend**: Next.js API Route (`/api/agent`)
+- **Workflow Engine**: n8n (ejecuta el agente de IA)
+
+## 🚀 Instalación
+
+1. **Instalar dependencias:**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Configurar variables de entorno:**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Edita el archivo `.env.local` y agrega tu URL del webhook de n8n:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+N8N_WEBHOOK_URL=https://tu-n8n-instance.com/webhook/tu-webhook-id
+```
 
-## Learn More
+## 🎯 Uso
 
-To learn more about Next.js, take a look at the following resources:
+1. **Iniciar el servidor de desarrollo:**
+```bash
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Abrir en el navegador:**
+```
+http://localhost:3000
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Hacer preguntas al agente:**
+- Escribe una consulta en el chat
+- Ejemplo: "¿Qué transacciones tiene esta wallet?"
+- El agente procesará tu consulta a través de n8n y te responderá
 
-## Deploy on Vercel
+## 📁 Estructura del Proyecto
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+buho/
+├── src/
+│   ├── app/
+│   │   ├── api/
+│   │   │   └── agent/
+│   │   │       └── route.ts       # API route que comunica con n8n
+│   │   ├── components/
+│   │   │   ├── ChatInput.tsx      # Input del chat
+│   │   │   └── ChatMessage.tsx    # Mensaje del chat
+│   │   ├── page.tsx               # Página principal del chat
+│   │   └── layout.tsx             # Layout raíz
+│   └── lib/
+│       └── utils.ts               # Utilidades
+├── .env.local                      # Variables de entorno
+└── package.json
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🔌 API Route
+
+La API recibe mensajes y los reenvía a n8n:
+
+**Endpoint:** `POST /api/agent`
+
+**Request:**
+```json
+{
+  "message": "¿Qué transacciones tiene esta wallet?",
+  "sessionId": "session-1234567890-abc123"
+}
+```
+
+**Response:**
+```json
+{
+  "reply": "Respuesta procesada por n8n..."
+}
+```
+
+## 🧩 Componentes
+
+### ChatInput
+- Input de texto con botón de envío
+- Soporte para Enter (enviar) y Shift+Enter (nueva línea)
+- Estado de loading
+
+### ChatMessage
+- Mensaje estilo bubble
+- Usuario: azul (`bg-blue-600`)
+- Agente: gris oscuro (`bg-neutral-800`)
+
+## 📦 n8n Workflow
+
+El webhook de n8n debe recibir:
+
+```json
+{
+  "chatInput": "texto del usuario",
+  "sessionId": "session-1234567890-abc123"
+}
+```
+
+Y devolver:
+
+```json
+{
+  "reply": "respuesta procesada"
+}
+```
+
+**Nota:** El `sessionId` se genera automáticamente al cargar la página y se mantiene durante toda la sesión del usuario. Es necesario para que funcione el nodo de memoria (Simple Memory) en n8n.
+
+## 🛠 Scripts Disponibles
+
+```bash
+# Desarrollo
+npm run dev
+
+# Build producción
+npm run build
+
+# Iniciar producción
+npm start
+
+# Linter
+npm run lint
+```
+
+## 📝 Notas Importantes
+
+- ❌ NO uses `OPENAI_API_KEY` en el frontend/backend
+- ✅ TODO el procesamiento de IA ocurre en n8n
+- ✅ Next.js solo maneja la UI y redirige a n8n
+- ✅ Mobile-first design
+- ✅ Dark mode compatible
+
+## 🦉 Happy coding!
