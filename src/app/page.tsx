@@ -10,7 +10,7 @@ export default function LandingPage() {
       {/* Hero Section */}
       <main className="flex-1 flex flex-col items-center justify-center px-6 text-center">
         <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-          Entiende tu blockchain
+          Entiende el Block Explorer
           <br />
           como nunca antes
         </h1>
@@ -23,7 +23,7 @@ export default function LandingPage() {
           href="/app"
           className="px-8 py-4 bg-gradient-to-br from-amber-200 via-amber-100 to-blue-100 text-black font-semibold rounded-lg hover:opacity-90 transition-opacity text-lg"
         >
-          Start Now
+          Empezar ahora
         </Link>
       </main>
     </div>
