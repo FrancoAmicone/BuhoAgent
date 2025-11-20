@@ -6,6 +6,9 @@ interface ChatMessageProps {
 export function ChatMessage({ message, role }: ChatMessageProps) {
   const isUser = role === "user";
 
+  // Detectar si el mensaje contiene HTML (específicamente tablas)
+  const containsHTML = /<table|<div|<span|<p/i.test(message);
+
   return (
     <div className={`flex w-full ${isUser ? "justify-end" : "justify-start"}`}>
       <div
@@ -15,9 +18,16 @@ export function ChatMessage({ message, role }: ChatMessageProps) {
             : "bg-neutral-800 text-white"
         }`}
       >
-        <p className="text-sm leading-relaxed whitespace-pre-wrap break-words">
-          {message}
-        </p>
+        {containsHTML ? (
+          <div
+            className="text-sm leading-relaxed agent-content"
+            dangerouslySetInnerHTML={{ __html: message }}
+          />
+        ) : (
+          <p className="text-sm leading-relaxed whitespace-pre-wrap break-words">
+            {message}
+          </p>
+        )}
       </div>
     </div>
   );
