@@ -121,42 +121,234 @@
   }
 }
 
-/* Estilos para contenido HTML del agente */
-.agent-content table {
+/* Animación de amanecer */
+@keyframes sunrise {
+  0% {
+    background-color: #000000;
+  }
+  100% {
+    background-color: #F5F5F0;
+  }
+}
+
+.animate-sunrise {
+  animation: sunrise 1.2s ease-out forwards;
+}
+
+/* Fade-in para contenido */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-in forwards;
+}
+
+.animate-fade-in-delayed {
+  opacity: 0;
+  animation: fadeIn 1s ease-in 0.4s forwards;
+}
+
+/* Animaciones del búho pensando - Tema Nocturno */
+
+/* Búho cazando (movimiento más dramático) */
+@keyframes owlHunt {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  15% {
+    transform: translateY(-6px) rotate(-5deg) scale(1.08);
+  }
+  30% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  45% {
+    transform: translateY(-4px) rotate(5deg) scale(1.05);
+  }
+  60% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  75% {
+    transform: translateY(-3px) rotate(-3deg) scale(1.03);
+  }
+}
+
+.animate-owl-hunt {
+  animation: owlHunt 3s ease-in-out infinite;
+}
+
+/* Resplandor pulsante */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.2);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.animate-pulse-glow-delayed {
+  animation: pulseGlow 2s ease-in-out infinite 0.3s;
+}
+
+/* Puntos pensando con brillo */
+@keyframes thinkingDotGlow {
+  0%, 60%, 100% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.4;
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  }
+  30% {
+    transform: translateY(-10px) scale(1.3);
+    opacity: 1;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+  }
+}
+
+.animate-thinking-dot-glow {
+  animation: thinkingDotGlow 1.4s ease-in-out infinite;
+}
+
+/* Barra de carga mística */
+@keyframes loadingBar {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-loading-bar {
+  animation: loadingBar 2s ease-in-out infinite;
+}
+
+/* Estrellas parpadeantes */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+.animate-twinkle {
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+/* Luna brillando */
+@keyframes moonGlow {
+  0%, 100% {
+    opacity: 0.15;
+    filter: blur(2px);
+  }
+  50% {
+    opacity: 0.3;
+    filter: blur(1px);
+  }
+}
+
+.animate-moon-glow {
+  animation: moonGlow 4s ease-in-out infinite;
+}
+
+/* Partículas flotando hacia arriba */
+@keyframes floatUp {
+  0% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(-60px) translateX(10px);
+    opacity: 0;
+  }
+}
+
+.animate-float-up {
+  animation: floatUp 3s ease-in-out infinite;
+}
+
+/* Gradiente radial personalizado */
+@layer utilities {
+  .bg-gradient-radial {
+    background-image: radial-gradient(circle, var(--tw-gradient-stops));
+  }
+}
+
+/* Estilos para contenido HTML en mensajes del agente */
+.agent-message-content {
+  overflow-x: auto;
+}
+
+.agent-message-content table {
   width: 100%;
   border-collapse: collapse;
-  margin: 12px 0;
-  font-size: 0.875rem;
+  margin: 0.5rem 0;
+  background-color: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
   overflow: hidden;
 }
 
-.agent-content table th {
+.agent-message-content th {
   background-color: rgba(255, 255, 255, 0.1);
-  padding: 10px 12px;
+  color: #fff;
+  padding: 0.75rem 1rem;
   text-align: left;
   font-weight: 600;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
 }
 
-.agent-content table td {
-  padding: 10px 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+.agent-message-content td {
+  padding: 0.75rem 1rem;
+  color: #fff;
+  font-size: 0.875rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.agent-content table tr:last-child td {
+.agent-message-content tr:last-child td {
   border-bottom: none;
 }
 
-.agent-content table tr:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+.agent-message-content tr:hover {
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
-.agent-content p {
-  margin: 0 0 12px 0;
-  line-height: 1.6;
+/* Resaltar valores positivos y negativos */
+.agent-message-content td:first-child {
+  font-weight: 500;
 }
 
-.agent-content p:last-child {
-  margin-bottom: 0;
+/* Responsivo para tablas */
+@media (max-width: 640px) {
+  .agent-message-content table {
+    font-size: 0.75rem;
+  }
+  
+  .agent-message-content th,
+  .agent-message-content td {
+    padding: 0.5rem 0.75rem;
+  }
 }
