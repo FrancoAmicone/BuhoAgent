@@ -7,8 +7,8 @@ export function ChatMessage({ message, role }: ChatMessageProps) {
   const isUser = role === "user";
 
   // Detectar si el mensaje contiene HTML (específicamente tablas)
-  const containsHTML = message.includes('<table') || message.includes('<html');
-  
+  const containsHTML = /<table|<div|<span|<p/i.test(message);
+
   return (
     <div className={`flex w-full ${isUser ? "justify-end" : "justify-start"}`}>
       <div
