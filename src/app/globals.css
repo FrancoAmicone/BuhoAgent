@@ -120,3 +120,36 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Animación de amanecer */
+@keyframes sunrise {
+  0% {
+    background-color: #000000;
+  }
+  100% {
+    background-color: #F5F5F0;
+  }
+}
+
+.animate-sunrise {
+  animation: sunrise 1.2s ease-out forwards;
+}
+
+/* Fade-in para contenido */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-in forwards;
+}
+
+.animate-fade-in-delayed {
+  opacity: 0;
+  animation: fadeIn 1s ease-in 0.4s forwards;
+}
