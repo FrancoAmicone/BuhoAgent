@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { ChatMessage } from "../components/ChatMessage";
 import { ChatInput } from "../components/ChatInput";
 import { Header } from "../components/Header";
+import { OwlThinking } from "../components/OwlThinking";
 
 interface Message {
   id: string;
@@ -39,6 +40,8 @@ export default function AppPage() {
 
     try {
       // Llamar a la API con sessionId
+      console.log("🚀 Enviando mensaje:", messageText);
+      
       const response = await fetch("/api/agent", {
         method: "POST",
         headers: {
@@ -50,7 +53,10 @@ export default function AppPage() {
         }),
       });
 
+      console.log("📡 Status de respuesta:", response.status);
+
       const data = await response.json();
+      console.log("📦 Data recibida:", data);
 
       // Agregar respuesta del agente
       const agentMessage: Message = {
@@ -59,7 +65,9 @@ export default function AppPage() {
         role: "agent",
       };
 
+      console.log("💬 Mensaje del agente a agregar:", agentMessage);
       setMessages((prev) => [...prev, agentMessage]);
+      console.log("✅ Mensaje agregado al estado");
     } catch (error) {
       // Agregar mensaje de error
       const errorMessage: Message = {
@@ -69,9 +77,11 @@ export default function AppPage() {
       };
 
       setMessages((prev) => [...prev, errorMessage]);
-      console.error("Error:", error);
+      console.error("❌ Error capturado:", error);
     } finally {
+      console.log("🔄 Desactivando loading...");
       setIsLoading(false);
+      console.log("✅ Loading desactivado");
     }
   };
 
@@ -103,17 +113,7 @@ export default function AppPage() {
                 />
               ))}
 
-              {isLoading && (
-                <div className="flex justify-start">
-                  <div className="bg-white rounded-2xl px-4 py-3 shadow-sm">
-                    <div className="flex gap-1">
-                      <span className="animate-bounce" style={{ animationDelay: "0ms" }}>●</span>
-                      <span className="animate-bounce" style={{ animationDelay: "150ms" }}>●</span>
-                      <span className="animate-bounce" style={{ animationDelay: "300ms" }}>●</span>
-                    </div>
-                  </div>
-                </div>
-              )}
+              {isLoading && <OwlThinking />}
 
               <div ref={messagesEndRef} />
             </div>
