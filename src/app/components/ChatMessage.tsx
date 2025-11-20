@@ -12,15 +12,15 @@ export function ChatMessage({ message, role }: ChatMessageProps) {
   return (
     <div className={`flex w-full ${isUser ? "justify-end" : "justify-start"}`}>
       <div
-        className={`max-w-[80%] rounded-2xl px-4 py-3 ${
+        className={`max-w-[90%] rounded-2xl px-4 py-3 shadow-sm ${
           isUser
-            ? "bg-blue-600 text-white"
-            : "bg-neutral-800 text-white"
+            ? "bg-[#F5EFE6] text-black"
+            : "bg-black text-white"
         }`}
       >
         {containsHTML ? (
-          <div
-            className="text-sm leading-relaxed agent-content"
+          <div 
+            className="text-sm leading-relaxed agent-message-content"
             dangerouslySetInnerHTML={{ __html: message }}
           />
         ) : (
